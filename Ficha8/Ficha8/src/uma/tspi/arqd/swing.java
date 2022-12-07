@@ -2,7 +2,7 @@ package uma.tspi.arqd;
 
 import javax.swing.*;
 
-public class SmartTermo extends JFrame {
+public class swing extends JFrame {
     private JPanel JPanelDad;
     private JButton HOMEButton;
     private JButton MENUButton;
@@ -12,9 +12,10 @@ public class SmartTermo extends JFrame {
     private JButton lessTemperature;
     private JLabel CurrentTemperature;
     private JLabel DesiredTemperature;
+    private JLabel IndoorTemperature;
 
 
-    public SmartTermo(String tittle){
+    public swing(String tittle){
         super(tittle);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setContentPane(JPanelDad);
@@ -22,12 +23,10 @@ public class SmartTermo extends JFrame {
 
 
 
-
-
     }
 
     public static void main(String[] args){
-        JFrame frame = new SmartTermo("Java SWING  Examples");
+        JFrame frame = new swing("Java SWING  Examples");
         frame.setVisible(true);
 
     }
