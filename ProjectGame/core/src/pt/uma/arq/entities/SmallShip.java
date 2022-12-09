@@ -7,6 +7,7 @@ import java.awt.*;
 public class SmallShip extends Ship{
     private SpriteBatch batch;
 
+
     /**
      * Construtor
      *

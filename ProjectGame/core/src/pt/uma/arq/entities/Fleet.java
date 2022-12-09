@@ -9,11 +9,13 @@ import java.util.Iterator;
 public class Fleet {
     private SpriteBatch batch;
     private ArrayList<Ship> fleetOfShips;
+    private ArrayList<Boom> explosions;
 
     //GET
     public ArrayList<Ship> getFleetOfShips() {
         return fleetOfShips;
     }
+
     Timer timer;
 
     /**
@@ -23,6 +25,7 @@ public class Fleet {
     public Fleet(SpriteBatch batch){
         this.batch=batch;
         this.fleetOfShips=new ArrayList<Ship>();
+        this.explosions=new ArrayList<Boom>();
         timer =new Timer();
         timer.scheduleTask(new Timer.Task() {
             @Override
@@ -100,10 +103,11 @@ public class Fleet {
                     player.setPoints(player.getPoints()-ship.getDamage()); //Points
                     ship.getLaser().setX(0);
                     ship.getLaser().setY(800);
-
                     ship.getLaser().setShow(false);
-                    explosion(player);
                     player.setLife(player.getLife()-ship.getDamage());
+                    if(player.getLife()==0){
+                        explosion(player);
+                    }
                 }
             }
         }
@@ -117,6 +121,14 @@ public class Fleet {
         for (Ship ship:fleetOfShips) {
                 ship.render();
             }
+
+        for (Boom explosion:explosions) {
+            explosion.render();
+            if(explosion.getContador()>=20){
+                explosion.setShow(false);
+            }
+        }
+
     }
 
     /**
@@ -129,6 +141,8 @@ public class Fleet {
             int index = (int)(Math.random()*fleetOfShips.size());
             fleetOfShips.get(index).shoot();
         }
+
+
     }
 
     /**
@@ -136,10 +150,10 @@ public class Fleet {
      * @param target é necessário para obtermos a posição da explusão
      */
     public void explosion(Ship target){
-        Explosion explosion=new Explosion(batch,target.getX(),target.getY()-10);
+        Boom explosion=new Boom(batch,target.getX(), target.getY());
         explosion.create();
+        explosions.add(explosion);
         explosion.setShow(true);
-        explosion.render();
-        explosion.setShow(false);
+
     }
 }

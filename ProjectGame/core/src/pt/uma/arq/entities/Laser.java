@@ -86,6 +86,7 @@ public class Laser {
                 musicLaser.setVolume(0.2f);
                 musicLaser.setLooping(false);
                 musicLaser.play();
+                musicLaser.pause();
             }
             if (show){
                 y+=direction;

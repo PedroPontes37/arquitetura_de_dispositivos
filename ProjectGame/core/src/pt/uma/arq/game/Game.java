@@ -4,10 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pt.uma.arq.entities.*;
+import sun.font.TrueTypeFont;
+
 
 import java.awt.*;
 
@@ -15,12 +18,12 @@ public class Game extends ApplicationAdapter  {
     private SpriteBatch batch;
     private BackgroundManagement backgroundManagement;
     private BitmapFont font;
-
-    private Sound soundWin;
     private Music music;
     private Music musicWin;
 
     private Music musicDefeat;
+
+    public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 
     private PlayerShip player;
     private Fleet fleet;
@@ -31,8 +34,6 @@ public class Game extends ApplicationAdapter  {
         font = new BitmapFont(Gdx.files.internal("gamefont.fnt"),
                 Gdx.files.internal("gamefont.png"), false);
         backgroundManagement = new BackgroundManagement(batch);
-        font = new BitmapFont(Gdx.files.internal("gamefont.fnt"),
-                Gdx.files.internal("gamefont.png"), false);
         //criar o player->
         player= new PlayerShip(batch,new Rectangle(300, 100,24,36));
         player.create();
@@ -62,7 +63,8 @@ public class Game extends ApplicationAdapter  {
         fleet.handleCollisionsStoP(player);
 
         backgroundManagement.render();
-        font.draw(batch, "Score: "+player.getPoints(), 460, 670);
+        font.setColor(Color.BLUE);
+        font.draw(batch, "Score: "+player.getPoints(), 450, 670);
         font.draw(batch, "Life: "+player.getLife(), 40, 670);
         //player functions
         fleet.render();
@@ -77,8 +79,8 @@ public class Game extends ApplicationAdapter  {
             musicDefeat.setVolume(0.4f);
             musicDefeat.setLooping(false);
             musicDefeat.play();
-            font.draw(batch, "YOU LOSE", 250, 300);
-            font.draw(batch, "Score: "+player.getPoints(), 250, 250);
+            font.draw(batch, "YOU LOSE", 240, 300);
+            font.draw(batch, "Score: "+player.getPoints(), 235, 250);
             player.getBoundingBox().setBounds(0,0,0,0);
         }
         if(fleet.getFleetOfShips().size()==0){
@@ -86,8 +88,8 @@ public class Game extends ApplicationAdapter  {
             musicWin.setVolume(0.8f);
             musicWin.setLooping(false);
             musicWin.play();
-            font.draw(batch, "YOU WIN", 250, 300);
-            font.draw(batch, "Score: "+player.getPoints(), 250, 250);
+            font.draw(batch, "YOU WIN", 240, 400);
+            font.draw(batch, "Score: "+player.getPoints(), 235, 350);
         }
         batch.end();
     }
