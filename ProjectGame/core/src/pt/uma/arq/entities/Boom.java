@@ -7,8 +7,7 @@ import pt.uma.arq.game.Animator;
 
 import java.awt.*;
 
-public class Boom {
-
+public class Boom implements PlayMusic {
     private SpriteBatch batch;
     private Animator animator;
 
@@ -19,22 +18,6 @@ public class Boom {
     private boolean show=false;
 
     private int x, y;
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public void setShow(boolean show) {
         this.show = show;
@@ -53,7 +36,7 @@ public class Boom {
         this.explosion=Gdx.audio.newMusic(Gdx.files.internal("explosion.mp3"));
     }
 
-    public void updtateContador() {
+    public void updateContador() {
         this.contador++;
     }
 
@@ -62,13 +45,15 @@ public class Boom {
     public void render(){
         if(this.show){
             this.animator.render(this.x,this.y);
-            explosion.setVolume(1.0f);
-            explosion.setLooping(false);
-            explosion.play();
-            updtateContador();
+            playMusic(explosion,1.0f,false);
+            updateContador();
         }
 
     }
-
-
+    @Override
+    public void playMusic(Music music, float volume, boolean loop) {
+        music.setVolume(volume);
+        music.setLooping(loop);
+        music.play();
+    }
 }

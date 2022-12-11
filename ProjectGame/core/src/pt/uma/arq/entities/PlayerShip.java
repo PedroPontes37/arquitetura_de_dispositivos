@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class PlayerShip extends Ship {
     private SpriteBatch batch;
-    private int x=300, y=100;
+    public int x=300, y=100;
     private int life = 100;
     private int points = 0;
 

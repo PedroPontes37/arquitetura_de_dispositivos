@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class Fleet {
+public class Fleet implements PlayMusic {
     private SpriteBatch batch;
     private ArrayList<Ship> fleetOfShips;
     private ArrayList<Boom> explosions;
 
     private Music shotEnemyToPlayer;
+    Timer timer;
 
     //GET
+
     public ArrayList<Ship> getFleetOfShips() {
         return fleetOfShips;
     }
-
-    Timer timer;
 
     /**
      * Construtor
@@ -115,9 +115,7 @@ public class Fleet {
                         explosion(player);
                     }
                     else{
-                        shotEnemyToPlayer.setVolume(0.8f);
-                        shotEnemyToPlayer.setLooping(false);
-                        shotEnemyToPlayer.play();
+                        playMusic(shotEnemyToPlayer,0.8f,false);
                     }
                 }
             }
@@ -165,5 +163,12 @@ public class Fleet {
         explosions.add(explosion);
         explosion.setShow(true);
 
+    }
+
+    @Override
+    public void playMusic(Music music, float volume, boolean loop) {
+        music.setVolume(volume);
+        music.setLooping(loop);
+        music.play();
     }
 }

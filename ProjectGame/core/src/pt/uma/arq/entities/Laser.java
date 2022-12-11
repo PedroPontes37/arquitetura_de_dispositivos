@@ -7,35 +7,27 @@ import pt.uma.arq.game.Animator;
 
 import java.awt.*;
 
-public class Laser {
+public class Laser implements PlayMusic {
     //Criar uma instancia do tipo Rectangle
-    private Rectangle boundingBox;
     private SpriteBatch batch;
     private Animator animator;
+    private Rectangle boundingBox;
     private int x, y=100;
-    private boolean show = true;
     private int direction;
     private int angle;
-
+    private boolean show = true;
     private Music musicLaser;
 
-
     //GETs & SETs
-    public int getY() {
-        return y;
-    }
-    public int getX() {
-        return x;
-    }
-    public boolean getShow(){return this.show;}
-    public Rectangle getBoundingBox() {
-        return boundingBox;
-    }
     public void setY(int y) {
         this.y = y;
     }
     public void setX(int x) {
         this.x = x;
+    }
+    public boolean getShow(){return this.show;}
+    public Rectangle getBoundingBox() {
+        return boundingBox;
     }
     public void setShow(boolean show) {
         this.show = show;
@@ -80,20 +72,12 @@ public class Laser {
         //Player
         if (this.direction>0){
             if (this.y>800){
-               show=false;
-
-                musicLaser.setVolume(0.2f);
-                musicLaser.setLooping(false);
-                musicLaser.play();
-                musicLaser.pause();
+                show=false;
             }
             if (show){
                 y+=direction;
                 x+=angle;
-                musicLaser.setVolume(0.2f);
-                musicLaser.setLooping(false);
-                musicLaser.play();
-
+                playMusic(musicLaser,0.2f,false);
                 this.animator.render(this.x,this.y);
             }
         //Enemy
@@ -109,5 +93,11 @@ public class Laser {
         }
     }
 
+    @Override
+    public void playMusic(Music music, float volume, boolean loop) {
+        music.setVolume(volume);
+        music.setLooping(loop);
+        music.play();
+    }
 }
 

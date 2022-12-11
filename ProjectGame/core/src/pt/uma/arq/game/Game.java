@@ -14,7 +14,7 @@ import sun.font.TrueTypeFont;
 
 import java.awt.*;
 
-public class Game extends ApplicationAdapter  {
+public class Game extends ApplicationAdapter implements PlayMusic  {
     private SpriteBatch batch;
     private BackgroundManagement backgroundManagement;
     private BitmapFont font;
@@ -70,24 +70,18 @@ public class Game extends ApplicationAdapter  {
         fleet.render();
         if (player.getLife()>0){
             player.render();
-            music.setVolume(0.4f);
-            music.setLooping(true);
-            music.play();
+            playMusic(music,0.4f,true);
         }else{
             player.setLife(0);
             music.pause();
-            musicDefeat.setVolume(0.4f);
-            musicDefeat.setLooping(false);
-            musicDefeat.play();
+            playMusic(musicDefeat,0.4f,false);
             font.draw(batch, "YOU LOSE", 240, 300);
             font.draw(batch, "Score: "+player.getPoints(), 235, 250);
             player.getBoundingBox().setBounds(0,0,0,0);
         }
         if(fleet.getFleetOfShips().size()==0){
             music.pause();
-            musicWin.setVolume(0.8f);
-            musicWin.setLooping(false);
-            musicWin.play();
+            playMusic(musicWin,0.8f,false);
             font.draw(batch, "YOU WIN", 240, 400);
             font.draw(batch, "Score: "+player.getPoints(), 235, 350);
         }
@@ -97,5 +91,11 @@ public class Game extends ApplicationAdapter  {
     public void dispose() {
 
       //  music.dispose();
+    }
+    @Override
+    public void playMusic(Music music, float volume, boolean loop) {
+        music.setVolume(volume);
+        music.setLooping(loop);
+        music.play();
     }
 }

@@ -27,9 +27,6 @@ public class Animator {
         this.path = path;
     }
 
-    public Animator() {
-
-    }
 
     public void create() {
 

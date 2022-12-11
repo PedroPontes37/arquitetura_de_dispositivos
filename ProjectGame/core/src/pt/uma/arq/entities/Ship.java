@@ -25,7 +25,6 @@ public abstract class Ship {
     }
     public Laser getLaser() { return laser; }
     public void setX(int x) {this.x = x;}
-    public void setY(int y) {this.y = y;}
 
     /**
      * Animator apenas serve para fazer as imagens irem alternando para gerar uma animação.
