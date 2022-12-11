@@ -70,7 +70,7 @@ public class Game extends ApplicationAdapter  {
         fleet.render();
         if (player.getLife()>0){
             player.render();
-            music.setVolume(0.6f);
+            music.setVolume(0.4f);
             music.setLooping(true);
             music.play();
         }else{

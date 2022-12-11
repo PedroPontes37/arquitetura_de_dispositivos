@@ -1,4 +1,6 @@
 package pt.uma.arq.entities;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Timer;
 import java.awt.*;
@@ -10,6 +12,8 @@ public class Fleet {
     private SpriteBatch batch;
     private ArrayList<Ship> fleetOfShips;
     private ArrayList<Boom> explosions;
+
+    private Music shotEnemyToPlayer;
 
     //GET
     public ArrayList<Ship> getFleetOfShips() {
@@ -33,6 +37,7 @@ public class Fleet {
                 shoot();
             }
         },2,(float)0.5,-1);
+        this.shotEnemyToPlayer= Gdx.audio.newMusic(Gdx.files.internal("player.mp3"));
     }
 
     /**
@@ -105,8 +110,14 @@ public class Fleet {
                     ship.getLaser().setY(800);
                     ship.getLaser().setShow(false);
                     player.setLife(player.getLife()-ship.getDamage());
-                    if(player.getLife()==0){
+
+                    if(player.getLife()<=0){
                         explosion(player);
+                    }
+                    else{
+                        shotEnemyToPlayer.setVolume(0.8f);
+                        shotEnemyToPlayer.setLooping(false);
+                        shotEnemyToPlayer.play();
                     }
                 }
             }
@@ -141,7 +152,6 @@ public class Fleet {
             int index = (int)(Math.random()*fleetOfShips.size());
             fleetOfShips.get(index).shoot();
         }
-
 
     }
 
